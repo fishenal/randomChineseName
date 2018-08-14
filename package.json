@@ -1,0 +1,14 @@
+{
+  "name": "random_chinese_names",
+  "version": "1.0.0",
+  "description": "generate random chinese name character depand on strokes and tones",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yudonghan",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": ""
+  }
+}

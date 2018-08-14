@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Generate your Chinese Name</title>
+		<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="./vue.js"></script>
+		<script src="./lodash.js"></script>
+		<script src="../src/goodWords.js"></script>
+		<script src="../src/familyNames.js"></script>
+		<style type="text/css">
+			table {
+				font-size: 150%;
+				text-align: center;
+				margin-top: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="container-fluid">
+			<table class="table table-bordered">
+				<tr>
+					<td v-if="familyNameVal !== 0 && familyName !== null">{{ familyName.word }}</td>
+					<td v-for="item in words">{{ item.word }}</td>
+				</tr>
+				<tr>
+					<td v-if="familyNameVal !== 0 && familyName !== null">{{ familyName.pinyin }}</td>
+					<td v-for="item in words">{{ item.pinyin }}</td>
+				</tr>
+			</table>
+			<form>
+				<h3>姓 / Family Name</h3>
+			  <div class="form-group">  
+			    <select class="form-control" id="exampleFormControlSelect1"  v-model="familyNameVal">
+			      <option v-for="(item, idx) in familyNameSets" :value="item.value">{{ item.label }}</option>
+			    </select>
+			    <label></label>
+			    <input class="form-control" type="text" v-if="familyNameVal === 2" v-model="familyNameInput">
+			  </div>
+			  <h3>名 / Words</h3>
+			  <div class="form-group" v-for="item in wordsSets">
+			    <label>笔画/Strokes</label>
+			    <input class="form-control" type="number" v-model.number="item.strokes">
+			    <label>音调/Tone</label>
+			    <input class="form-control" v-model.number="item.tone" type="number">
+			    <hr>
+			  </div>
+			  <button type="button" class="btn btn-info" @click="addWord">加字/Add Word</button>
+			</form>
+			<hr>
+			<button type="button" class="btn btn-primary btn-lg btn-block" @click="random">生成/Generate</button>
+			<hr>
+			<div class="alert alert-primary" v-html="warning"></div>
+		</div>
+		<script>
+			// Vue.component('show-board', {
+			// 	data: {
+			// 		words: []
+			// 	},
+			// 	template: '<ul><li v-for="item in words">{{ item.word }}</li></ul>'
+			// })
+			
+			var wordSet = function () {
+				return {
+					strokes: 3,
+					tone: 1	
+				}
+			}
+			var app = new Vue({
+			  el: '#app',
+			  data: {
+			    familyName: null,
+			    familyNameVal: 1,
+			    familyNameInput: '',
+			    familyNameSets: [
+				    {
+				    	label: '无/None',
+				    	value: 0
+				    },
+				    {
+				    	label: '随机/Random',
+				    	value: 1
+				    },
+				    {
+				    	label: '指定/Specify',
+				    	value: 2
+				    }
+			    ],
+			    wordsSets: [
+			    	wordSet(),
+			    	wordSet()
+			    ],
+			    words: [],
+			    warning: ''
+			  },
+			  methods: {
+			  	addWord () {
+			  		this.wordsSets.push(wordSet())
+			  	},
+			  	genFamilyName () {
+			  		console.log(this.familyNameVal)
+			  		if (this.familyNameVal === 0) {
+			  			return
+			  		}
+			  		else if (this.familyNameVal === 1) {
+			  			this.familyName = _.sample(familyNames)
+			  		}
+			  		else if (this.familyNameVal === 2) {
+			  			this.familyName = {
+			  				word: this.familyNameInput
+			  			}
+			  		}
+			  	},
+			  	random () {
+			  		this.genFamilyName()
+			  		this.words = []
+			  		this.warning = ''
+			  		this.wordsSets.forEach((item, idx) => {
+			  			let gws = _.filter(goodWords, {
+			  				strokes: item.strokes,
+			  				tone: item.tone
+			  			})
+			  			if (gws.length === 0) {
+			  				this.warning += 'index: ' + idx + ' word no match!<br>'
+			  				return
+			  			}
+			  			let rndGws = _.sample(gws)
+			  			this.words.push(rndGws)
+			  		})
+			  		console.log(this.words)
+			  	}
+			  }
+			})
+		</script>
+	</body>
+</html>
