@@ -1,13 +1,13 @@
 # randomChineseName
 generate random chinese name character depand on strokes and tones
 
-## try [this](https://fishenal.github.io/randomChineseName/web/index.html) to generate your random chinese name, you will get the chinese character and pinyin
+## Try [this](https://fishenal.github.io/randomChineseName/web/index.html) to generate your random chinese name, you will get the chinese character and pinyin
 
 ![image](https://fishenal.github.io/randomChineseName/demo.png)
 
-## info
-strokes: how many steps to write a chinese character, mostly represents it's complexity.
-tone: modern mandarin has four tones, it shows four differents pronunciations.
+## info:
+ strokes: how many steps to write a chinese character, mostly represents it's complexity.
+ tone: modern mandarin has four tones, it shows four differents pronunciations.
 
 ## files:
 - lib/dict.json : whole chinese dict, from https://github.com/pwxcoo/chinese-xinhua
