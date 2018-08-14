@@ -6,8 +6,8 @@ generate random chinese name character depand on strokes and tones
 ![image](https://fishenal.github.io/randomChineseName/demo.png)
 
 ## info:
- strokes: how many steps to write a chinese character, mostly represents it's complexity.
- tone: modern mandarin has four tones, it shows four differents pronunciations.
+- strokes: how many steps to write a chinese character, mostly represents it's complexity.
+- tone: modern mandarin has four tones, it shows four differents pronunciations.
 
 ## files:
 - lib/dict.json : whole chinese dict, from https://github.com/pwxcoo/chinese-xinhua
