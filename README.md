@@ -17,5 +17,5 @@ generate random chinese name character depand on strokes and tones
 - src/. : genarated source data
 - web/. : web app run on this github website, using lodash.js / vue.js/ bootstrap
 
-## Enjoy!
+## Enjoy!!
 
